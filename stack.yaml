@@ -1,0 +1,7 @@
+flags:
+  bitmap:
+    base4: true
+packages:
+- '.'
+extra-deps: []
+resolver: nightly-2015-07-30

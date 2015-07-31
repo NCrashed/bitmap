@@ -407,24 +407,24 @@ unsafeWritePixel4 bm xy (x,y,z,w) = withComponentPtr (fromIOBitmap4 bm) xy 0 $ \
 
 --------------------------------------------------------------------------------
 
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Word8  -> Ptr Word8  -> IO ()) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Word16 -> Ptr Word16 -> IO ()) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Word32 -> Ptr Word32 -> IO ()) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Float  -> Ptr Float  -> IO ()) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Word8  -> Ptr Word8  -> IO ()) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Word16 -> Ptr Word16 -> IO ()) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Word32 -> Ptr Word32 -> IO ()) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Float  -> Ptr Float  -> IO ()) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}
 
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Word8  -> Ptr Float  -> IO ()) -> IOBitmap Word8  -> IOBitmap Float  -> IO () #-}
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Float  -> Ptr Word8  -> IO ()) -> IOBitmap Float  -> IOBitmap Word8  -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Word8  -> Ptr Float  -> IO ()) -> IOBitmap Word8  -> IOBitmap Float  -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Float  -> Ptr Word8  -> IO ()) -> IOBitmap Float  -> IOBitmap Word8  -> IO () #-}
 
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Word16 -> Ptr Float  -> IO ()) -> IOBitmap Word16 -> IOBitmap Float  -> IO () #-}
-{-# SPECIALIZE genericComponentRowMap 
-      :: (Int -> Int -> Ptr Float  -> Ptr Word16 -> IO ()) -> IOBitmap Float  -> IOBitmap Word16 -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Word16 -> Ptr Float  -> IO ()) -> IOBitmap Word16 -> IOBitmap Float  -> IO () #-}
+-- {-# SPECIALIZE genericComponentRowMap 
+--      :: (Int -> Int -> Ptr Float  -> Ptr Word16 -> IO ()) -> IOBitmap Float  -> IOBitmap Word16 -> IO () #-}
 
 -- the first Int is the y position
 -- the second Int is the number of pixel components (nchn*width)
@@ -493,16 +493,16 @@ genericPixelRowMap rowAction bm1 bm2 = do
 
 --------------------------------------------------------------------------------
       
-{-# SPECIALIZE genericComponentMap :: (Word8  -> Word8 ) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}      
-{-# SPECIALIZE genericComponentMap :: (Word16 -> Word16) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}      
-{-# SPECIALIZE genericComponentMap :: (Word32 -> Word32) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}      
-{-# SPECIALIZE genericComponentMap :: (Float  -> Float ) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Word8  -> Word8 ) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Word16 -> Word16) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Word32 -> Word32) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Float  -> Float ) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}      
 
-{-# SPECIALIZE genericComponentMap :: (Word8  -> Float ) -> IOBitmap Word8  -> IOBitmap Float  -> IO () #-}      
-{-# SPECIALIZE genericComponentMap :: (Float  -> Word8 ) -> IOBitmap Float  -> IOBitmap Word8  -> IO () #-}
+-- {-# SPECIALIZE genericComponentMap :: (Word8  -> Float ) -> IOBitmap Word8  -> IOBitmap Float  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Float  -> Word8 ) -> IOBitmap Float  -> IOBitmap Word8  -> IO () #-}
       
-{-# SPECIALIZE genericComponentMap :: (Word16 -> Float ) -> IOBitmap Word16 -> IOBitmap Float  -> IO () #-}      
-{-# SPECIALIZE genericComponentMap :: (Float  -> Word16) -> IOBitmap Float  -> IOBitmap Word16 -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Word16 -> Float ) -> IOBitmap Word16 -> IOBitmap Float  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMap :: (Float  -> Word16) -> IOBitmap Float  -> IOBitmap Word16 -> IO () #-}      
       
 genericComponentMap 
 --  :: forall s t . (PixelComponent s, PixelComponent t) 
@@ -518,10 +518,10 @@ genericComponentMap f bm1 bm2 = genericComponentRowMap g bm1 bm2 where
   g ypos n p1 p2 = do
     foldM_ h (p1,p2) [0..n-1]
 
-{-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word8  -> Word8 ) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}      
-{-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word16 -> Word16) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}      
-{-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word32 -> Word32) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}      
-{-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Float  -> Float ) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word8  -> Word8 ) -> IOBitmap Word8  -> IOBitmap Word8  -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word16 -> Word16) -> IOBitmap Word16 -> IOBitmap Word16 -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Word32 -> Word32) -> IOBitmap Word32 -> IOBitmap Word32 -> IO () #-}      
+-- {-# SPECIALIZE genericComponentMapWithPos :: (Int -> Int -> Float  -> Float ) -> IOBitmap Float  -> IOBitmap Float  -> IO () #-}      
 
 genericComponentMapWithPos 
 --  :: forall s t . (PixelComponent s, PixelComponent t) 
@@ -1237,16 +1237,16 @@ ptrUndefined :: Ptr a -> a
 ptrUndefined _ = undefined
 
 -- no multiplication
-{-# SPECIALIZE advancePtr1 :: Ptr Word8 -> Ptr Word8 #-}
-{-# SPECIALIZE advancePtr1 :: Ptr Float -> Ptr Float #-}
+-- {-# SPECIALIZE advancePtr1 :: Ptr Word8 -> Ptr Word8 #-}
+-- {-# SPECIALIZE advancePtr1 :: Ptr Float -> Ptr Float #-}
 --advancePtr1 :: forall a. Storable a => Ptr a -> Ptr a
 --advancePtr1 p = p `plusPtr` (sizeOf (undefined::a))
 advancePtr1 :: Storable a => Ptr a -> Ptr a
 advancePtr1 p = p `plusPtr` (sizeOf (ptrUndefined p))
 
 -- restricted type
-{-# SPECIALIZE myPlusPtr :: Ptr Word8 -> Int -> Ptr Word8 #-}
-{-# SPECIALIZE myPlusPtr :: Ptr Float -> Int -> Ptr Float #-}
+-- {-# SPECIALIZE myPlusPtr :: Ptr Word8 -> Int -> Ptr Word8 #-}
+-- {-# SPECIALIZE myPlusPtr :: Ptr Float -> Int -> Ptr Float #-}
 myPlusPtr :: Ptr a -> Int -> Ptr a
 myPlusPtr = plusPtr
 
